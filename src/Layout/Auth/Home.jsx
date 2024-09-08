@@ -1,60 +1,124 @@
-import React, { Children, useEffect, useState } from 'react';
-import { getProducts } from '../../services/product.service';
+import React, { useEffect, useState } from "react";
+import { getProducts } from "../../services/product.service";
+import Navbar from "../../components/Navbar";
+import {Video} from "../../services/video.service"
+import { tvs as tvshow } from "../../services/tvshow.service"
+import Hero from "../../components/Hero";
+import Footer from "../../components/Footer";
 
-// https://fakestoreapi.com/products
+
 export default function Home(){
 
-    const [movies, setmovies] = useState([])
-    useEffect(() => {
-        getProducts((data)=> {
-            setmovie(data)
-            console.log(data)
-        }) 
-    },[])
+    const [movies, setMovies] = useState([]);
+    const [videos, setVideo] = useState([]);
+    const [tvs, setTV] = useState([]);
 
+    useEffect(() => {
+        getProducts((data) => {
+            setMovies(data);
+        });
+    }, []);
+
+    useEffect(() => {
+        tvshow((data) => {
+            setTV(data);
+        });
+    }, []);
+
+    useEffect(() => {
+        Video((data) => {
+            setVideo(data);
+        });
+    }, []);
 
     return (
         <>
-            <div className="flex">
-                {/* {
-                    movies.map(items =>(
-                        <div key={items.id} className="">
-                            <h1>{items.name}</h1>
-                        </div>
+            <Navbar/>
+
+        <Hero/>
+        <div className="px-5 space-y-12 bg-gray-950 pt-10">
+            <div className="">
+                <h1 className='font-bold text-white'>Popular Movies</h1>
+                <div className="flex gap-5 mt-2 overflow-auto no-scrollbar rounded-xl">
+                    {
+                        movies.map((video) => (
+                            <CardVideo key={video.id} props={video}></CardVideo>
                         ))
-                } */}
-                <Videocard name="testing", published_at= "testing" type="testi" ></Videocard>
+                    }
+                </div>
             </div>
+
+            <div>
+                <h1 className='font-bold text-white'>TV Show</h1>
+                <div className="flex gap-5 mt-2 overflow-auto no-scrollbar rounded-xl">
+                    {
+                        tvs.map((video) => (
+                            <CardTv key={video.id} props={video}/>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div>
+                <h1 className='font-bold text-white'>Trending</h1>
+                <div className="flex gap-5 mt-2 overflow-auto no-scrollbar rounded-xl">
+                    {
+                        videos.map((video) => (
+                            <CardVideo key={video.id} props={video}/>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+
+    <Footer/>
+
         </>
-      );
+    );
 }
 
-// buatkan t huruf besar T
-// makasi
-const Videocard = (props) => {
-    const {name, key, type, published_at  } = props
-    return(
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-            </a>
-            <div class="p-5">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h5>
-                </a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{type}</p>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{published_at}</p>
+const CardVideo = ({ props }) => {
+    const {  title, poster_path, original_title } = props;
+    return (
+        <div className="relative flex flex-col   ">
+        <div className="absolute inset-0 bg-center rounded-xl dark:bg-black"></div>
+        <div className="group relative m-0 flex  w-44 rounded-xl shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+            <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 opacity-80 transition  duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
+            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
+            </div>
+            <div className="absolute bottom-0 z-20 m-0 pb-4 mt-5 ps-4 transition duration-300 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-3 group-hover:scale-110">
+            <h1 className="text-xl font-bold text-white shadow-xl  hover:block">
+                {original_title}
+            </h1>
 
             </div>
         </div>
-    )
+        </div>
+    );
 }
 
 
-// ntar inibakalan lama, ntar lagi ngoba"
+const CardTv = ({ props }) => {
+    const {  name, poster_path, original_name } = props;
+    return (
+        <>
+            <div className="relative flex flex-col   ">
+        <div className="absolute inset-0 bg-center rounded-xl dark:bg-black"></div>
+        <div className="group relative m-0 flex  w-44 rounded-xl shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+            <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 opacity-80 transition  duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
+            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={name} />
+            </div>
+            <div className="absolute bottom-0 z-20 m-0 pb-4 mt-5 ps-4 transition duration-300 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-3 group-hover:scale-110">
+            <h1 className="text-xl font-bold text-white shadow-xl  hover:block">
+                {original_name}
+            </h1>
 
-// minta tolong lagi, buatkan v huruf besar
+            </div>
+        </div>
+        </div>
+        </>
+    );
+}
 
 
-// coba paste ke wa ku yang mana teken aja ctrl+v
-// kaa ngaruh ga sih ini
+
