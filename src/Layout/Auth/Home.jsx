@@ -5,6 +5,7 @@ import {Video} from "../../services/video.service"
 import { tvs as tvshow } from "../../services/tvshow.service"
 import Hero from "../../components/Hero";
 import Footer from "../../components/Footer";
+import { Link } from "react-router-dom";
 
 
 export default function Home(){
@@ -30,6 +31,8 @@ export default function Home(){
             setVideo(data);
         });
     }, []);
+
+    
 
     return (
         <>
@@ -78,9 +81,12 @@ export default function Home(){
 }
 
 const CardVideo = ({ props }) => {
-    const {  title, poster_path, original_title } = props;
+    const { overview, title, poster_path, original_title, popularity, release_date } = props;
     return (
-        <div className="relative flex flex-col   ">
+        <Link 
+            to={`/videos/preview/${original_title}`} 
+            state={{poster_path, overview, popularity, release_date}} 
+            className="relative flex flex-col">
         <div className="absolute inset-0 bg-center rounded-xl dark:bg-black"></div>
         <div className="group relative m-0 flex  w-44 rounded-xl shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg">
             <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 opacity-80 transition  duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
@@ -93,32 +99,41 @@ const CardVideo = ({ props }) => {
 
             </div>
         </div>
-        </div>
+        </Link>
     );
 }
 
 
-const CardTv = ({ props }) => {
-    const {  name, poster_path, original_name } = props;
+    const CardTv = ({ props }) => {
+    const { overview, title, poster_path, original_name, popularity} = props;
     return (
-        <>
-            <div className="relative flex flex-col   ">
-        <div className="absolute inset-0 bg-center rounded-xl dark:bg-black"></div>
-        <div className="group relative m-0 flex  w-44 rounded-xl shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg">
-            <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 opacity-80 transition  duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
-            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={name} />
-            </div>
-            <div className="absolute bottom-0 z-20 m-0 pb-4 mt-5 ps-4 transition duration-300 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-3 group-hover:scale-110">
-            <h1 className="text-xl font-bold text-white shadow-xl  hover:block">
-                {original_name}
-            </h1>
+        <Link 
+            to={`/videos/preview/${original_name}`} 
+            state={{poster_path, overview, popularity}} 
+            className="relative flex flex-col">
+      <div className="absolute inset-0 bg-center rounded-xl dark:bg-black"></div>
 
-            </div>
+      <div className="group relative m-0 flex w-44 rounded-xl shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+        <div className="z-10 h-full w-full overflow-hidden rounded-xl border border-gray-200 opacity-80 transition duration-300 ease-in-out group-hover:opacity-100 dark:border-gray-700 dark:opacity-70">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
         </div>
+
+        <div className="absolute bottom-0 z-20 m-0 pb-4 mt-5 ps-4 transition duration-300 ease-in-out group-hover:-translate-y-1 group-hover:translate-x-3 group-hover:scale-110">
+          <h1 className="text-xl font-bold text-white shadow-xl">
+            {original_name}
+          </h1>
         </div>
-        </>
-    );
-}
+      </div>
+    </Link>
+  );
+};
+
+
+
 
 
 

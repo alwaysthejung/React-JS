@@ -10,6 +10,7 @@ import Login from './Layout/Auth/Login'
 import Register from './Layout/Auth/register'
 import HalamanAwal from './Layout/Auth/HalamanAwal'
 import Home from './Layout/Auth/Home'
+import Preview from './Layout/Auth/Preview'
 
 // define router path
 const router = createBrowserRouter ([
@@ -28,6 +29,10 @@ const router = createBrowserRouter ([
   {
     path: "/home",
     element:<Home/>,
+  },
+  {
+    path: "/videos/preview/:original_title",
+    element:<Preview/>,
   }
 ])
 
