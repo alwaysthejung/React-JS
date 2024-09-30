@@ -37,10 +37,10 @@ return (
                 <h2 className="text-4xl font-bold mb-4">{original_title}</h2>
                 <p className="text-lg mb-2">{popularity} | {release_date} | 17+</p>
                 <div className="tabs mb-4 space-x-4">
-                    <Button text="Overview" color="gray-700"></Button>
-                    <Button text="Trailers & More" color="slate-700"></Button>
-                    <Button text="More Like This" color="Neutral-600"></Button>
-                    <Button text="Details" color="Zinc-600"></Button>
+                    <Button text="Overview" color="bg-neutral-600"></Button>
+                    <Button text="Trailers & More" color="bg-neutral-600"></Button>
+                    <Button text="More Like This" color="bg-neutral-600"></Button>
+                    <Button text="Details" color="bg-neutral-600"></Button>
                 </div>
                 <p className="mb-4">
                     {overview}

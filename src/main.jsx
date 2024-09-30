@@ -11,6 +11,11 @@ import Register from './Layout/Auth/register'
 import HalamanAwal from './Layout/Auth/HalamanAwal'
 import Home from './Layout/Auth/Home'
 import Preview from './Layout/Auth/Preview'
+import Genre from './Layout/Auth/Genre';
+import Series from './Layout/Auth/Series'
+import PilihGenre from './Layout/Auth/pilihGenre';
+import Action from './Layout/Auth/Action';
+
 
 // define router path
 const router = createBrowserRouter ([
@@ -33,6 +38,22 @@ const router = createBrowserRouter ([
   {
     path: "/videos/preview/:original_title",
     element:<Preview/>,
+  },
+  {
+    path: "/genre",
+    element:<Genre/>,
+  },
+  {
+    path: "/series",
+    element:<Series/>,
+  },
+  {
+    path: "/genre/pilihgenre",
+    element:<PilihGenre/>,
+  },
+  {
+    path: "/genre/action",
+    element:<Action/>,
   }
 ])
 
